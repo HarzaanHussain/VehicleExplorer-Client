@@ -29,7 +29,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // Create simpler password requirements - just 6 characters minimum
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       firstName: [''],

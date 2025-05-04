@@ -34,7 +34,6 @@ export class VehicleFormComponent implements OnInit {
     this.initForm();
     this.loadManufacturers();
 
-    // Check if we're in edit mode
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam && this.router.url.includes('/edit/')) {
       this.isEditMode = true;
@@ -59,7 +58,6 @@ export class VehicleFormComponent implements OnInit {
       })
     });
 
-    // Listen for changes to the includeFuelData checkbox
     this.vehicleForm.get('fuelEfficiency.includeFuelData')?.valueChanges.subscribe(include => {
       const combinedMpgControl = this.vehicleForm.get('fuelEfficiency.combinedMpg');
       const annualFuelCostControl = this.vehicleForm.get('fuelEfficiency.annualFuelCost');
@@ -94,7 +92,6 @@ export class VehicleFormComponent implements OnInit {
         next: (vehicle) => {
           this.vehicle = vehicle;
 
-          // Check if fuel efficiency data is present
           const hasFuelData = vehicle.combinedMpg != null || vehicle.annualFuelCost != null;
 
           // Update the form with vehicle data
@@ -127,7 +124,6 @@ export class VehicleFormComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    // Prepare vehicle data from form
     const formValue = this.vehicleForm.value;
     const vehicleData: Vehicle = {
       id: this.isEditMode ? this.vehicleId : 0,

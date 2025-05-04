@@ -105,15 +105,11 @@ export class AuthService {
     let errorMessage = 'An unknown error occurred';
 
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side error
       if (error.status === 400) {
-        // Bad Request - usually validation errors
         if (error.error && typeof error.error === 'object') {
           if (error.error.errors) {
-            // ASP.NET Core validation errors
             const validationErrors = [];
             for (const key in error.error.errors) {
               if (error.error.errors.hasOwnProperty(key)) {

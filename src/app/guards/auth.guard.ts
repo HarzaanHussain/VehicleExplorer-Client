@@ -3,7 +3,6 @@ import { Router, CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot } fr
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 
-// Modern approach with standalone function
 export const authGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
@@ -19,7 +18,6 @@ export const authGuard: CanActivateFn = (
   return false;
 };
 
-// Legacy class-based approach (kept for compatibility)
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
   constructor(private router: Router, private authService: AuthService) { }
