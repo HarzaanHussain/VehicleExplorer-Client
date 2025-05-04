@@ -1,0 +1,28 @@
+<h1>Vehicle Explorer</h1>
+<p>
+  A sample web application to demonstrate how to interact with ASP.NET, Angular,
+  Entity Framework Core and a SQL Database.
+</p>
+<div class="home-stats">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Vehicle Data</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>This application provides information about:</p>
+      <ul>
+        <li><strong>Vehicles</strong>: Browse vehicle models</li>
+        <li><strong>Manufacturers</strong>: Browse vehicle manufacturers</li>
+      </ul>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-flat-button color="primary" [routerLink]="['/vehicles']">
+        Browse Vehicles
+      </a>
+      <a mat-flat-button color="accent" [routerLink]="['/manufacturers']">
+        Browse Manufacturers
+      </a>
+    </mat-card-actions>
+  </mat-card>
+  <img src="assets/home.jpg" alt="Vehicle Explorer" class="home-cover" />
+</div>

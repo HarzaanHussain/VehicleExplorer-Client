@@ -1,0 +1,119 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"vehicleexplorer.client": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"standalone": false,
+					"style": "scss"
+				},
+				"@schematics/angular:directive": {
+					"standalone": false
+				},
+				"@schematics/angular:pipe": {
+					"standalone": false
+				}
+			},
+			"root": "",
+			"sourceRoot": "src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:application",
+					"options": {
+						"outputPath": "dist/vehicleexplorer.client",
+						"index": "src/index.html",
+						"browser": "src/main.ts",
+						"polyfills": [
+							"zone.js"
+						],
+						"tsConfig": "tsconfig.app.json",
+						"assets": [
+							"src/favicon.ico",
+							"src/assets"
+						],
+						"styles": [
+							"@angular/material/prebuilt-themes/indigo-pink.css",
+							"src/styles.scss"
+						],
+						"scripts": []
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.development.ts"
+								}
+							]
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "vehicleexplorer.client:build:production"
+						},
+						"development": {
+							"buildTarget": "vehicleexplorer.client:build:development"
+						}
+					},
+					"defaultConfiguration": "development",
+					"options": {
+						"proxyConfig": "src/proxy.conf.js",
+						"port": 55803
+					}
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"buildTarget": "vehicleexplorer.client:build"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "tsconfig.spec.json",
+						"assets": [
+							"src/favicon.ico",
+							"src/assets"
+						],
+						"styles": [
+							"@angular/material/prebuilt-themes/indigo-pink.css",
+							"src/styles.scss"
+						],
+						"scripts": [],
+						"karmaConfig": "karma.conf.js"
+					}
+				}
+			}
+		}
+	}
+}

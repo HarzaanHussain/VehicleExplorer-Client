@@ -1,0 +1,90 @@
+<div class="vehicle-form-container">
+  <h1>{{ isEditMode ? 'Edit Vehicle' : 'Create New Vehicle' }}</h1>
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <!-- Manufacturer selection -->
+    <mat-form-field appearance="fill">
+      <mat-label>Manufacturer</mat-label>
+      <mat-select formControlName="manufacturerId" required>
+        <mat-option *ngFor="let manufacturer of manufacturers" [value]="manufacturer.id">
+          {{ manufacturer.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="vehicleForm.get('manufacturerId')?.hasError('required')">
+        Manufacturer is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Model name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Model Name</mat-label>
+      <input matInput formControlName="modelName" required>
+      <mat-error *ngIf="vehicleForm.get('modelName')?.hasError('required')">
+        Model name is required
+      </mat-error>
+      <mat-error *ngIf="vehicleForm.get('modelName')?.hasError('maxlength')">
+        Model name cannot exceed 100 characters
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Year -->
+    <mat-form-field appearance="fill">
+      <mat-label>Year</mat-label>
+      <input matInput type="number" formControlName="year" required>
+      <mat-error *ngIf="vehicleForm.get('year')?.hasError('required')">
+        Year is required
+      </mat-error>
+      <mat-error *ngIf="vehicleForm.get('year')?.hasError('min')">
+        Year must be at least 1900
+      </mat-error>
+      <mat-error *ngIf="vehicleForm.get('year')?.hasError('max')">
+        Year cannot exceed the current year plus 1
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Fuel efficiency section -->
+    <div formGroupName="fuelEfficiency">
+      <h3>Fuel Efficiency Details</h3>
+
+      <!-- Toggle for including fuel efficiency data -->
+      <mat-checkbox formControlName="includeFuelData">Include fuel efficiency data</mat-checkbox>
+
+      <div *ngIf="vehicleForm.get('fuelEfficiency.includeFuelData')?.value">
+        <!-- Combined MPG -->
+        <mat-form-field appearance="fill">
+          <mat-label>Combined MPG</mat-label>
+          <input matInput type="number" formControlName="combinedMpg">
+          <mat-error *ngIf="vehicleForm.get('fuelEfficiency.combinedMpg')?.hasError('min')">
+            Value must be greater than 0
+          </mat-error>
+          <mat-error *ngIf="vehicleForm.get('fuelEfficiency.combinedMpg')?.hasError('max')">
+            Value cannot exceed 200
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Annual Fuel Cost -->
+        <mat-form-field appearance="fill">
+          <mat-label>Annual Fuel Cost ($)</mat-label>
+          <input matInput type="number" formControlName="annualFuelCost">
+          <mat-error *ngIf="vehicleForm.get('fuelEfficiency.annualFuelCost')?.hasError('min')">
+            Value must be greater than 0
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Form actions -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid || isLoading">
+        <mat-spinner *ngIf="isLoading" [diameter]="24"></mat-spinner>
+        <span *ngIf="!isLoading">{{ isEditMode ? 'Update' : 'Create' }}</span>
+      </button>
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

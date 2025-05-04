@@ -1,0 +1,16 @@
+.manufacturer-edit {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+}

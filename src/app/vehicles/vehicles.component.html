@@ -1,0 +1,37 @@
+<h1>Vehicles</h1>
+<p>Here you can browse all vehicles.</p>
+<div class="mat-elevation-z8">
+  <div class="table-container">
+    <div class="custom-table">
+      <!-- Header row -->
+      <div class="header-row">
+        <div class="header-cell">ID</div>
+        <div class="header-cell">Manufacturer</div>
+        <div class="header-cell">Model</div>
+        <div class="header-cell">Year</div>
+        <div class="header-cell">MPG</div>
+        <div class="header-cell">Annual Fuel Cost</div>
+      </div>
+      <!-- Data rows -->
+      <div class="data-row" *ngFor="let vehicle of paginatedData"
+           [routerLink]="['/vehicles', vehicle.id]"
+           style="cursor: pointer;">
+        <div class="data-cell">{{vehicle.id}}</div>
+        <div class="data-cell">{{vehicle.manufacturer?.name || '-'}}</div>
+        <div class="data-cell">{{vehicle.modelName}}</div>
+        <div class="data-cell">{{vehicle.year}}</div>
+        <div class="data-cell">{{vehicle.combinedMpg || '-'}}</div>
+        <div class="data-cell">{{vehicle.annualFuelCost | currency}}</div>
+      </div>
+      <!-- No data row -->
+      <div class="no-data-row" *ngIf="vehicles.length === 0">
+        <div class="no-data-cell">No data available</div>
+      </div>
+    </div>
+  </div>
+  <mat-paginator [length]="vehicles.length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

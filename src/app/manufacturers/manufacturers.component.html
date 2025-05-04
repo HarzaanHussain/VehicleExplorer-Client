@@ -1,0 +1,31 @@
+<h1>Manufacturers</h1>
+<p>Here you can browse all vehicle manufacturers.</p>
+<div class="mat-elevation-z8">
+  <div class="table-container">
+    <div class="custom-table">
+      <!-- Header row -->
+      <div class="header-row">
+        <div class="header-cell">ID</div>
+        <div class="header-cell">Name</div>
+        <div class="header-cell">Code</div>
+      </div>
+      <!-- Data rows -->
+      <div class="data-row" *ngFor="let manufacturer of paginatedData"
+           [routerLink]="['/manufacturers', manufacturer.id]"
+           style="cursor: pointer;">
+        <div class="data-cell">{{manufacturer.id}}</div>
+        <div class="data-cell">{{manufacturer.name}}</div>
+        <div class="data-cell">{{manufacturer.code || '-'}}</div>
+      </div>
+      <!-- No data row -->
+      <div class="no-data-row" *ngIf="manufacturers.length === 0">
+        <div class="no-data-cell">No data available</div>
+      </div>
+    </div>
+  </div>
+  <mat-paginator [length]="manufacturers.length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[10, 25, 50, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

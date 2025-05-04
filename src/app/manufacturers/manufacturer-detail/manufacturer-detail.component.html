@@ -1,0 +1,89 @@
+<div class="manufacturer-edit" *ngIf="!viewMode">
+  <h1>{{title}}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Name -->
+    <mat-form-field>
+      <mat-label>Name:</mat-label>
+      <input matInput formControlName="name" placeholder="Manufacturer name" required>
+      <mat-error *ngIf="form.controls['name'].errors?.['required']">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+    <!-- Code -->
+    <mat-form-field>
+      <mat-label>Code:</mat-label>
+      <input matInput formControlName="code" placeholder="Manufacturer code" maxlength="10">
+    </mat-form-field>
+    <div class="form-buttons">
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">
+        Save
+      </button>
+      <button mat-flat-button color="warn" type="button" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+
+<div class="manufacturer-view" *ngIf="viewMode">
+  <h1>{{manufacturer?.name}}</h1>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Manufacturer Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="detail-row">
+        <span class="label">ID:</span>
+        <span>{{manufacturer?.id}}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Name:</span>
+        <span>{{manufacturer?.name}}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Code:</span>
+        <span>{{manufacturer?.code || '-'}}</span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/manufacturers/edit', manufacturer?.id]">
+        <mat-icon>edit</mat-icon> Edit
+      </button>
+      <button mat-button [routerLink]="['/manufacturers']">Back to List</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <h2>Vehicles by this Manufacturer</h2>
+
+  <div *ngIf="vehicles && vehicles.length > 0; else noVehicles">
+    <div class="mat-elevation-z8">
+      <div class="table-container">
+        <div class="custom-table">
+          <!-- Header row -->
+          <div class="header-row">
+            <div class="header-cell">ID</div>
+            <div class="header-cell">Model</div>
+            <div class="header-cell">Year</div>
+            <div class="header-cell">MPG</div>
+            <div class="header-cell">Annual Fuel Cost</div>
+          </div>
+          <!-- Data rows -->
+          <div class="data-row" *ngFor="let vehicle of vehicles"
+               [routerLink]="['/vehicles', vehicle.id]"
+               style="cursor: pointer;">
+            <div class="data-cell">{{vehicle.id}}</div>
+            <div class="data-cell">{{vehicle.modelName}}</div>
+            <div class="data-cell">{{vehicle.year}}</div>
+            <div class="data-cell">{{vehicle.combinedMpg || '-'}}</div>
+            <div class="data-cell">{{vehicle.annualFuelCost | currency}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noVehicles>
+    <p>No vehicles found for this manufacturer.</p>
+  </ng-template>
+</div>
