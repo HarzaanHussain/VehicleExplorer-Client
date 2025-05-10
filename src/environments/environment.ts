@@ -1,4 +1,3 @@
 export const environment = {
-  production: true,
-  baseUrl: 'https://localhost:40443/'
+  baseUrl: 'http://ec2-34-230-70-92.compute-1.amazonaws.com/'
 };

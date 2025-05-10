@@ -30,7 +30,7 @@ import { VehicleDetailComponent } from './vehicles/vehicle-detail/vehicle-detail
 import { VehicleFormComponent } from './vehicles/vehicle-form/vehicle-form.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { AuthInterceptor } from './interceptors/auth.service';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
